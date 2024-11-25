@@ -61,12 +61,8 @@ TEMPLATES = [
 WSGI_APPLICATION = 'music_ismylife.wsgi.application'
 
 # Database
-# SQLite 설정으로 변경
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': SECRETS["DATABASES"]
 }
 
 # Password validation

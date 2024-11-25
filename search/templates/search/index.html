@@ -16,7 +16,7 @@
     </header>
 
     <main>
-        <form method="POST" action="/trigger-dag/">
+        <form action="{% url 'trigger_dag' %}" method="POST">
             {% csrf_token %}
             
             <!-- 에러 메시지 출력 -->
@@ -31,11 +31,11 @@
             <div class="form-row">
                 <div class="checkbox-group">
                     <!-- YouTube 체크박스 -->
-                    <input type="checkbox" id="youtube" name="platform" value="youtube">
+                    <input type="radio" id="youtube" name="platform" value="youtube">
                     <label for="youtube" class="checkbox-label youtube">YouTube</label>
                     
                     <!-- Spotify 체크박스 -->
-                    <input type="checkbox" id="spotify" name="platform" value="spotify">
+                    <input type="radio" id="spotify" name="platform" value="spotify">
                     <label for="spotify" class="checkbox-label spotify">Spotify</label>
                 </div>                
                 <div class="group">
@@ -49,7 +49,7 @@
             </div>
         </form>
         
-        <!-- 신곡 리스트 -->
+        <!-- 인기 차트 리스트 -->
         <div class="playlist">
             {% load tz %}
             <h2 class="section-title">
@@ -57,11 +57,14 @@
                 {{ current_date }} 인기 차트
             </h2>
             <div class="scroll-container">
-                {% if new_songs %}
-                    {% for song in new_songs %}
+                {% if daily_songs %}
+                    {% for song in daily_songs %}
                         <div class="scroll-item">
-                            <h3>{{ song.title }} - {{ song.artist }}</h3>
-                            <iframe width="300" height="200" src="https://www.youtube.com/embed/{{ song.video_url|split:'='|last }}" frameborder="0" allowfullscreen></iframe>
+                            <a href="{{ song.song_url }}" target="_blank">
+                                <img src="{{ song.thumbnail }}" alt="{{ song.song_title }}" class="thumbnail">
+                                <p class="song-title">{{ song.song_title }}</p>
+                                <p class="song-platform">{{ song.platform }}</p>
+                            </a>
                         </div>
                     {% endfor %}
                 {% else %}
@@ -70,15 +73,18 @@
             </div>
         </div>
 
-        <!-- 시즌별/상황별 플레이리스트 -->
+        <!-- 추천 플레이리스트 -->
         <div class="playlist">
             <h2 class="section-title">이런 플레이리스트 어때요?</h2>
             <div class="scroll-container">
-                {% if playlists %}
-                    {% for playlist in playlists %}
+                {% if daily_playlists %}
+                    {% for playlist in daily_playlists %}
                         <div class="scroll-item">
-                            <h3>{{ playlist.name }}</h3>
-                            <iframe src="{{ playlist.playlist_url }}" width="300" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+                            <a href="{{ playlist.playlist_url }}" target="_blank">
+                                <img src="{{ playlist.thumbnail }}" alt="Playlist Thumbnail">
+                                <p class="playlist-name">{{ playlist.playlist_title }}</p>
+                                <p class="playlist-platform">{{ playlist.platform }}</p>
+                            </a>
                         </div>
                     {% endfor %}
                 {% else %}

@@ -1,3 +1,5 @@
+
+
 /* Font 적용 */
 @font-face {
     font-family: 'Pretendard-Regular';
@@ -9,6 +11,20 @@
 @font-face {
     font-family: 'YoonChildfundkoreaManSeh';
     src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408@1.0/YoonChildfundkoreaManSeh.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'DOSGothic';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_eight@1.0/DOSGothic.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'NeoDunggeunmoPro-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2302@1.0/NeoDunggeunmoPro-Regular.woff2') format('woff2');
     font-weight: normal;
     font-style: normal;
 }
@@ -29,10 +45,15 @@ header {
     z-index: 10; /* 다른 요소 위에 표시 */
 }
 
+.head {
+    margin: 20px 20px 15px;
+}
+
 h1 {
-    font-family: 'YoonChildfundkoreaManSeh';
+    font-family: 'NeoDunggeunmoPro-Regular';
     font-size: 24px;
     margin: 0.5rem;
+    color: white;
 }
 
 .material-symbols-outlined {
@@ -48,17 +69,18 @@ body {
     margin: 0;
     line-height: 1;
     background-color: #252422; /* 배경색 */
-    font-family: 'Pretendard-Regular';
+    font-family: 'NeoDunggeunmoPro-Regular';
 }
 
 /* Sidebar 스타일 */
 .main-container {
     display: flex;
     height: 100vh;
+    margin-top: 3.5rem;
 }
 
 .sidebar {
-    width: 280px;
+    width: 200px;
     background-color: #333;
     color: white;
     display: flex;
@@ -116,6 +138,10 @@ hr {
     background-color: #333;
 }
 
+.main-content {
+    width: 100%
+}
+
 /* 검색창 스타일 */
 main {
     color: black;
@@ -128,7 +154,7 @@ main {
     line-height: 28px;
     align-items: center;
     position: relative;
-    padding: 20px 0px 0px 20px;
+    padding: 20px 0px 10px 20px;
 }
 
 .input {
@@ -166,6 +192,8 @@ main {
     left: 30px;
 }
 
+
+
 /* 검색 결과 컨테이너 스타일 */
 .youtube-videos-container,
 .youtube-playlist-container,
@@ -173,7 +201,7 @@ main {
 .spotify-playlist-container {
     background-color: #f4f4f4; 
     max-width: 97%; 
-    margin: 30px auto; 
+    margin: 10px 30px 30px 30px; 
     padding: 0px 20px 20px 20px;
     border-radius: 10px; 
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); 
@@ -251,8 +279,13 @@ main {
 }
 
 /* 담기 버튼 */
-.result-item .action {
-    flex: 0 0 auto; 
+
+.thumbnail {
+    padding: 0px 0px 0px 10px;
+}
+
+.action {
+    padding: 10px;
 }
 
 .result-item .action .view-btn {
@@ -383,7 +416,7 @@ main {
 }
 
 footer {
-    font-family: 'Pretendard-Regular';
+    font-family: 'DungGeunMo';
     position: fixed; /* 화면 하단에 고정 */
     bottom: 0;
     left: 0;

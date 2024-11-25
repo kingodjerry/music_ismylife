@@ -20,8 +20,8 @@
         <aside class="sidebar">
             <p class="sidebar-title">MENU</p>
             <hr>
-            <button id="youtube-button" class="active">YouTube</button>
-            <button id="spotify-button">Spotify</button>
+            <button id="youtube-button" class="{% if platform == 'youtube' %}active{% endif %}">YouTube</button>
+            <button id="spotify-button" class="{% if platform == 'spotify' %}active{% endif %}">Spotify</button>
         </aside>
 
         <!-- 메인 콘텐츠 -->
@@ -42,25 +42,30 @@
 
             <!-- 검색결과 -->
             <section class="result-container">
-                <!-- YouTube 검색결과 -->
-                <div id="youtube-section">
+                <div class="head">
+                    <h1>{{ input_value }} 관련 노래 추천</h1>
+                </div>
+                <!-- YouTube 콘텐츠 -->
+                <div id="youtube-section" class="{% if platform != 'youtube' %}hidden{% endif %}">
+                    <!-- YouTube 추천 비디오 -->
                     <div class="youtube-videos-container">
                         <section class="result-list">
                             <h2>YouTube Recommended Video</h2>
                             <div class="results-grid">
-                                {% for video in youtube_videos %}
-                                <div class="result-item">
-                                    <div class="thumbnail">
-                                        <img src="{{ video.thumbnail_url }}" alt="{{ video.video_title }}">
-                                    </div>
-                                    <div class="details">
-                                        <p class="title">{{ video.video_title }}</p>
-                                        <p class="artist">{{ video.artist }}</p>
-                                    </div>
-                                    <div class="action">
-                                        <a href="{{ video.video_url }}" class="view-btn" target="_blank">담기</a>
-                                    </div>
-                                </div>
+                                {% for song in search_songs %}
+                                    {% if song.platform == "youtube" %}
+                                        <div class="result-item">
+                                            <div class="thumbnail">
+                                                <img src="{{ song.thumbnail }}" alt="{{ song.song_title }}">
+                                            </div>
+                                            <div class="details">
+                                                <p class="title">{{ song.song_title }}</p>
+                                            </div>
+                                            <div class="action">
+                                                <a href="https://www.youtube.com/watch?v={{ song.song_url }}" class="view-btn" target="_blank">담기</a>
+                                            </div>
+                                        </div>
+                                    {% endif %}
                                 {% empty %}
                                 <p>유튜브 추천 비디오가 없습니다.</p>
                                 {% endfor %}
@@ -68,17 +73,21 @@
                         </section>
                     </div>
 
+                    <!-- YouTube 추천 플레이리스트 -->
                     <div class="youtube-playlist-container">
                         <section class="result-list">
                             <h2>YouTube Recommended Playlist</h2>
                             <div class="playlist-grid">
-                                {% for playlist in youtube_playlists %}
-                                <div class="playlist-item">
-                                    <div class="thumbnail">
-                                        <img src="{{ playlist.thumbnail_url }}" alt="{{ playlist.playlist_title }}">
-                                    </div>
-                                    <p class="title">{{ playlist.playlist_title }}</p>
-                                </div>
+                                {% for playlist in search_playlists %}
+                                    {% if playlist.platform == "youtube" %}
+                                        <div class="playlist-item">
+                                            <div class="thumbnail">
+                                                <img src="{{ playlist.thumbnail }}" alt="{{ playlist.playlist_title }}">
+                                            </div>
+                                            <p class="title">{{ playlist.playlist_title }}</p>
+                                            <a href="{{ playlist.playlist_url }}" class="view-btn" target="_blank">보기</a>
+                                        </div>
+                                    {% endif %}
                                 {% empty %}
                                 <p>유튜브 추천 플레이리스트가 없습니다.</p>
                                 {% endfor %}
@@ -87,25 +96,27 @@
                     </div>
                 </div>
 
-                <!-- Spotify 검색결과 -->
-                <div id="spotify-section" class="hidden">
+                <!-- Spotify 콘텐츠 -->
+                <div id="spotify-section" class="{% if platform != 'spotify' %}hidden{% endif %}">
+                    <!-- Spotify 추천 노래 -->
                     <div class="spotify-recommend-container">
                         <section class="result-list">
                             <h2>Spotify Recommended Music</h2>
                             <div class="results-grid">
-                                {% for recommend in spotify_recommend %}
-                                <div class="result-item">
-                                    <div class="thumbnail">
-                                        <img src="{{ recommend.cover_image }}" alt="{{ recommend.title }}">
-                                    </div>
-                                    <div class="details">
-                                        <p class="title">{{ recommend.title }}</p>
-                                        <p class="artist">{{ recommend.artist }}</p>
-                                    </div>
-                                    <div class="action">
-                                        <a href="{{ recommend.link }}" class="view-btn" target="_blank">담기</a>
-                                    </div>
-                                </div>
+                                {% for song in search_songs %}
+                                    {% if song.platform == "spotify" %}
+                                        <div class="result-item">
+                                            <div class="thumbnail">
+                                                <img src="{{ song.thumbnail }}" alt="{{ song.song_title }}">
+                                            </div>
+                                            <div class="details">
+                                                <p class="title">{{ song.song_title }}</p>
+                                            </div>
+                                            <div class="action">
+                                                <a href="{{ song.song_url }}" class="view-btn" target="_blank">담기</a>
+                                            </div>
+                                        </div>
+                                    {% endif %}
                                 {% empty %}
                                 <p>스포티파이 추천 곡이 없습니다.</p>
                                 {% endfor %}
@@ -113,17 +124,21 @@
                         </section>
                     </div>
 
+                    <!-- Spotify 추천 플레이리스트 -->
                     <div class="spotify-playlist-container">
                         <section class="result-list">
                             <h2>Spotify Recommended Playlist</h2>
                             <div class="playlist-grid">
-                                {% for playlist in spotify_playlists %}
-                                <div class="playlist-item">
-                                    <div class="thumbnail">
-                                        <img src="{{ playlist.cover_image }}" alt="{{ playlist.title }}">
-                                    </div>
-                                    <p class="title">{{ playlist.title }}</p>
-                                </div>
+                                {% for playlist in search_playlists %}
+                                    {% if playlist.platform == "spotify" %}
+                                        <div class="playlist-item">
+                                            <div class="thumbnail">
+                                                <img src="{{ playlist.thumbnail }}" alt="{{ playlist.playlist_title }}">
+                                            </div>
+                                            <p class="title">{{ playlist.playlist_title }}</p>
+                                            <a href="{{ playlist.playlist_url }}" class="view-btn" target="_blank">보기</a>
+                                        </div>
+                                    {% endif %}
                                 {% empty %}
                                 <p>스포티파이 추천 플레이리스트가 없습니다.</p>
                                 {% endfor %}
