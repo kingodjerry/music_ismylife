@@ -42,7 +42,7 @@ def trigger_airflow_dag(request):
         request.session['platform'] = platform
         request.session['input_value'] = input_value
 
-        airflow_url = "http://localhost:8080/api/v1/dags/example_trigger_dag/dagRuns"
+        airflow_url = "http://localhost:8080/api/v1/dags/spotify_etl_dag_playlist/dagRuns"
         username = 'airflow'
         password = 'airflow'
 
