@@ -1,4 +1,17 @@
-/* Reset body styles */
+@font-face {
+    font-family: 'YoonChildfundkoreaManSeh';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408@1.0/YoonChildfundkoreaManSeh.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
 body {
     margin: 0;
     font-family: Arial, sans-serif;
@@ -9,44 +22,79 @@ body {
 
 /* Header 스타일 */
 header {
+    position: fixed; /* 화면 상단에 고정 */
+    top: 0;
+    left: 0;
+    width: 100%; /* 화면 전체 너비 */
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
     background-color: #333;
     color: white;
-    padding: 1rem 0;
-    text-align: center;
-    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2); /* 헤더 아래 흰색 그림자 추가 */
+    padding: 0.5rem 2rem; /* padding 축소 */
+    box-shadow: 0 4px 20px rgba(255, 255, 255, 0.05); /* 헤더 그림자 */
+    z-index: 10; /* 다른 요소 위에 표시 */
 }
 
-/* 검색창 스타일 */
+h1 {
+    font-family: 'YoonChildfundkoreaManSeh';
+    font-size: 24px;
+    margin: 0.5rem;
+}
+
+.material-symbols-outlined {
+    font-variation-settings:
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 24
+}
+
 main {
-    display: flex;
+    margin-top: 4.5rem; /* header 높이만큼 간격 */
+    margin-bottom: 2rem; /* footer 높이만큼 간격 */
+    display: block;
     justify-content: center;
     align-items: center;
-    height: 70vh;
+    min-height: calc(100vh - 5rem); /* 화면 높이에서 header와 footer 높이 제외 */
+    overflow-y: auto; /* 내용이 많을 경우 스크롤 생성 */
     background-color: #303030;
 }
 
-/* From Uiverse.io by alexruix */
+/* form-row: input과 버튼들을 하나의 행(row)로 배치 */
+.form-row {
+    display: flex;
+    align-items: center; /* 세로축 중앙 정렬 */
+    justify-content: center; /* 가로축 중앙 정렬 */
+    gap: 1rem; /* 각 요소 간 간격 */
+    margin-top: 1rem;
+    padding: 15px;
+}
+
+/* group 스타일 그대로 유지 */
 .group {
     display: flex;
-    line-height: 28px;
     align-items: center;
     position: relative;
-    max-width: 300px; /* input 길이 늘리기 */
+    max-width: 450px;
+    width: 100%;
 }
 
 .input {
-    width: 100%;
-    height: 50px; /* 높이 늘리기 */
+    width: 100%; /* 부모 요소의 너비를 기준으로 조정 */
+    max-width: 500px; /* 기존 300px에서 500px로 증가 */
+    height: 100%;
     line-height: 28px;
-    padding: 0 1rem;
+    padding: 0.5rem 1rem;
     padding-left: 2.5rem;
     border: 2px solid transparent;
     border-radius: 8px;
     outline: none;
     background-color: #f4f4f4;
-    color: #f4f4f4; /* 글자 색을 더 밝은 색으로 */
+    color: #303030;
     transition: .3s ease;
 }
+
 
 .input::placeholder {
     color: #9e9ea7;
@@ -55,9 +103,9 @@ main {
 .input:focus,
 .input:hover {
     outline: none;
-    border-color: #ea4c8940; /* 포인트 컬러 */
+    border-color: #f2f2f2; /* 포인트 컬러 */
     background-color: #fff;
-    box-shadow: 0 0 0 4px #ea4c891a; /* 포인트 컬러 */
+    box-shadow: 0 0 0 4px #ffffff46; /* 포인트 컬러 */
 }
 
 .icon {
@@ -68,10 +116,126 @@ main {
     height: 1rem;
 }
 
-/* Footer 스타일 */
+/* 체크박스 스타일 */
+.checkbox-group {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem; /* 각 체크박스 간의 간격 */
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    font-family: 'Pretendard-Regular';
+    font-size: 0.9rem;
+    color: white;
+    height: 100%; /* input과 동일한 높이 설정 */
+}
+
+input[type="checkbox"] {
+    display: none; /* 기본 체크박스 숨김 */
+}
+
+/* 체크박스 선택 시 스타일 */
+input[type="checkbox"]:checked + .checkbox-label.youtube {
+    background-color: #FF0000; /* YouTube 빨간색 */
+    color: white;
+}
+
+input[type="checkbox"]:checked + .checkbox-label.spotify {
+    background-color: #1DB954; /* Spotify 초록색 */
+    color: white;
+}
+
+/* 체크박스 선택 안 된 상태 */
+.checkbox-label.youtube {
+    background-color: #800000; /* 어두운 빨간색 */
+    color: #ccc;
+}
+
+.checkbox-label.spotify {
+    background-color: #004d26; /* 어두운 초록색 */
+    color: #ccc;
+}
+
+.checkbox-label:hover {
+    opacity: 0.9; /* 호버 시 살짝 밝게 */
+}
+
+.playlist {
+    margin: 20px 15px;
+    padding: 15px;
+    background-color: #f8f8f8;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.scroll-container {
+    display: flex;
+    overflow-x: auto;
+    padding: 10px;
+    gap: 10px;
+    scroll-behavior: smooth;
+}
+
+.scroll-container::-webkit-scrollbar {
+    height: 8px;
+}
+
+.scroll-container::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 4px;
+}
+
+.scroll-container::-webkit-scrollbar-thumb:hover {
+    background: #888;
+}
+
+.scroll-item {
+    flex: 0 0 auto;
+    width: 150px;
+    height: 150px;
+    background-color: #f5f5f5;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    color: #333;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.section-title {
+    font-family: 'YoonChildfundkoreaManSeh';
+    font-size: 1.2em;
+    font-weight: bold;
+    margin: 0 10px 10px;
+    color: #303030;
+}
+
+.no-data-message {
+    padding: 15px;
+    color: #666;
+    font-style: italic;
+    text-align: center;
+    width: 100%;
+}
+
 footer {
+    font-family: 'Pretendard-Regular';
+    position: fixed; /* 화면 하단에 고정 */
+    bottom: 0;
+    left: 0;
+    width: 100%; /* 화면 전체 너비 */
     background-color: #333;
     color: white;
     text-align: center;
     padding: 0.5rem 0;
+    z-index: 10; /* 다른 요소 위에 표시 */
 }

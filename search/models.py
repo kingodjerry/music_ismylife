@@ -34,3 +34,34 @@ class SpotifyPlaylist(models.Model):
         verbose_name = "스포티파이 플레이리스트"
         verbose_name_plural = "스포티파이 플레이리스트 목록"
 
+class NewSong(models.Model):
+    title = models.CharField(max_length=256)
+    artist = models.CharField(max_length=256)
+    video_url = models.URLField(max_length=256)
+    platform = models.CharField(max_length=50)
+    release_date = models.DateField()
+
+    def __str__(self):
+        return f"{self.title} - {self.artist}"
+    
+    class Meta:
+        db_table = 'new_songs'
+        verbose_name = "신곡"
+        verbose_name_plural = "신곡 목록"
+
+class SeasonalPlaylist(models.Model):
+    name = models.CharField(max_length=256)
+    description = models.TextField(blank=True)
+    playlist_url = models.URLField(max_length=256)
+    cover_image = models.URLField(max_length=256, blank=True)
+    platform = models.CharField(max_length=50)
+    category = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
+    
+    class Meta:
+        db_table = 'seasonal_playlists'
+        verbose_name = "시즌별 플레이리스트"
+        verbose_name_plural = "시즌별 플레이리스트 목록"
+
