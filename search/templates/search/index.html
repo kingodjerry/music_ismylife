@@ -55,23 +55,23 @@
             <h2 class="section-title">
                 {% now "Y년 n월 j일" as current_date %}
                 {{ current_date }} 인기 차트
-            </h2>
-            <div class="scroll-container">
-                {% if daily_songs %}
-                    {% for song in daily_songs %}
-                        <div class="scroll-item">
-                            <a href="{{ song.song_url }}" target="_blank">
-                                <img src="{{ song.thumbnail }}" alt="{{ song.song_title }}" class="thumbnail">
-                                <p class="song-title">{{ song.song_title }}</p>
-                                <p class="song-platform">{{ song.platform }}</p>
-                            </a>
-                        </div>
-                    {% endfor %}
-                {% else %}
-                    <div class="no-data-message">신곡 추천 데이터가 없습니다.</div>
-                {% endif %}
+                </h2>
+                <div class="scroll-container">
+                    {% if daily_songs %}
+                        {% for song in daily_songs %}
+                            <div class="scroll-item">
+                                <a href="{% if song.platform == 'youtube' %}{{ song.song_url|youtube_url }}{% else %}{{ song.song_url }}{% endif %}" target="_blank">
+                                    <img src="{{ song.thumbnail }}" alt="{{ song.song_title }}" class="thumbnail">
+                                    <p class="song-title">{{ song.song_title }}</p>
+                                </a>                                                      
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="no-data-message">신곡 추천 데이터가 없습니다.</div>
+                    {% endif %}
+                </div>
             </div>
-        </div>
+
 
         <!-- 추천 플레이리스트 -->
         <div class="playlist">
@@ -81,9 +81,8 @@
                     {% for playlist in daily_playlists %}
                         <div class="scroll-item">
                             <a href="{{ playlist.playlist_url }}" target="_blank">
-                                <img src="{{ playlist.thumbnail }}" alt="Playlist Thumbnail">
+                                <img src="{{ playlist.thumbnail }}" alt="Playlist Thumbnail" class="thumbnail">
                                 <p class="playlist-name">{{ playlist.playlist_title }}</p>
-                                <p class="playlist-platform">{{ playlist.platform }}</p>
                             </a>
                         </div>
                     {% endfor %}
