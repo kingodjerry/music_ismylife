@@ -201,8 +201,12 @@ input[type="radio"]:checked + .checkbox-label.spotify {
 .scroll-item {
     flex: 0 0 auto;
     width: 200px;
+    height: 300px;
     text-align: center;
     transition: transform 0.3s ease;
+    display: flex;             /* 자식 요소를 flexbox로 처리 */
+    flex-direction: column;    /* 세로 정렬을 위해 column 방향으로 설정 */
+    align-items: center;       /* 가로로 가운데 정렬 */
 }
 
 .scroll-item:hover {
@@ -248,21 +252,38 @@ input[type="radio"]:checked + .checkbox-label.spotify {
 .song-title, .playlist-name {
     font-weight: bold;
     margin: 0;
-    font-size: 14px;
+    font-size: 16px; /* 노래 제목 크기 설정 */
+    color: #303030; /* 글자 색을 흰색으로 설정 */
 }
 
-.song-artist {
+/* 플랫폼 레이블 스타일 */
+.platform-label {
     font-size: 12px;
-    color: #666;
+    color: #fff; /* 글자 색을 흰색으로 설정 */
+    margin-top: 5px;
+    width: 65px;
+    display: flex;            /* flexbox 활성화 */
+    justify-content: center;  /* 수평 가운데 정렬 */
+    align-items: center;      /* 수직 가운데 정렬 */
 }
 
-.no-data-message {
-    padding: 15px;
-    color: #666;
-    font-style: italic;
-    text-align: center;
-    width: 100%;
+/* YouTube 색상 */
+.platform-label.youtube {
+    background-color: #FF0000; /* YouTube 빨간색 */
+    padding: 2px 6px;
+    border-radius: 8px;
+    font-size: 12px;
 }
+
+/* Spotify 색상 */
+.platform-label.spotify {
+    background-color: #1DB954; /* Spotify 초록색 */
+    padding: 2px 6px;
+    border-radius: 8px;
+    font-size: 12px;
+}
+
+
 
 footer {
     font-family: 'NeoDunggeunmoPro-Regular';
