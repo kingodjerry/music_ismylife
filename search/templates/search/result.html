@@ -1,17 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    {% load static %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Search Result Page</title>
-    {% load static %}
+    <link rel="shortcut icon" href="{% static 'search/images/favicon.ico' %}" type="image/x-icon">
+    <title>옥탑방 플레이리스트</title>
     <link rel="stylesheet" type="text/css" href="{% static 'search/css/result.css' %}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=music_note" />
 </head>
 <body>
     <!-- 헤더 -->
     <header>
-        <h1>007:LIST</h1>
+        <h1>옥탑방 플레이리스트</h1>
         <span class="material-symbols-outlined">music_note</span>
     </header>
 
@@ -63,14 +64,14 @@
             <!-- 검색결과 -->
             <section class="result-container">
                 <div class="head">
-                    <h2>{{ input_value }}과 비슷한 노래</h2>
+                    <h2>{{ input_value }}과 비슷한 이런 노래는 어때요?</h2>
                 </div>
                 <!-- YouTube 콘텐츠 -->
                 <div id="youtube-section" class="{% if platform != 'youtube' %}hidden{% endif %}">
                     <!-- YouTube 추천 비디오 -->
                     <div class="youtube-videos-container">
                         <section class="result-list">
-                            <h2 class="list_h2 youtube">YouTube Recommended Video</h2>
+                            <h2 class="list_h2 youtube">Youtube 추천 비디오</h2>
                             <div class="results-grid">
                                 {% for song in search_songs %}
                                     {% if song.platform == "youtube" %}
@@ -81,8 +82,12 @@
                                             <div class="details">
                                                 <p class="title">{{ song.song_title }}</p>
                                             </div>
+                                            <!-- 담기 버튼 -->
                                             <div class="action">
-                                                <a href="https://www.youtube.com/watch?v={{ song.song_url }}" class="view-btn" target="_blank">담기</a>
+                                                <a href="https://www.youtube.com/watch?v={{ song.song_url }}" class="view-btn" 
+                                                target="_blank" data-title="{{ song.song_title }}" onclick="addToPlaylist('{{ song.song_title }}', '{{ song.song_url }}')">
+                                                담기
+                                                </a>
                                             </div>
                                         </div>
                                     {% endif %}
@@ -93,27 +98,31 @@
                         </section>
                     </div>
 
-                    <!-- YouTube 추천 플레이리스트 -->
                     <div class="youtube-playlist-container">
                         <section class="result-list">
-                            <h2 class="list_h2 youtube">YouTube Recommended Playlist</h2>
+                            <h2 class="list_h2 youtube">YouTube 추천 플레이리스트</h2>
                             <div class="results-grid">
-                                {% for song in search_songs %}
-                                    {% if song.platform == "spotify" %}
+                                {% for playlist in search_playlists %}
+                                    {% if playlist.platform == "youtube" %}
                                         <div class="result-item">
                                             <div class="thumbnail">
-                                                <img src="{{ song.thumbnail }}" alt="{{ song.song_title }}">
+                                                <img src="{{ playlist.thumbnail }}" alt="{{ playlist.playlist_title }}">
                                             </div>
                                             <div class="details">
-                                                <p class="title">{{ song.song_title }}</p>
+                                                <p class="title">{{ playlist.playlist_title }}</p>
                                             </div>
                                             <div class="action">
-                                                <a href="{{ song.song_url }}" class="view-btn" target="_blank">담기</a>
+                                                <a href="https://www.youtube.com/watch?v={{ playlist.playlist_url }}" 
+                                                    class="view-btn" target="_blank" 
+                                                    data-title="{{ playlist.playlist_title }}" 
+                                                    onclick="addToPlaylist('{{ playlist.playlist_title }}', '{{ playlist.playlist_url }}')">
+                                                    담기
+                                                </a>
                                             </div>
                                         </div>
                                     {% endif %}
                                 {% empty %}
-                                <p>스포티파이 추천 곡이 없습니다.</p>
+                                <p>유튜브 추천 플레이리스트가 없습니다.</p>
                                 {% endfor %}
                             </div>
                         </section>
@@ -125,15 +134,15 @@
                     <!-- Spotify 추천 노래 -->
                     <div class="spotify-recommend-container">
                         <section class="result-list">
-                            <h2 class="list_h2 spotify">Spotify Recommended Music</h2>
+                            <h2 class="list_h2 spotify">Spotify 추천 곡</h2>
                             <div class="results-grid">
                                 {% for song in search_songs %}
                                     {% if song.platform == "spotify" %}
                                         <div class="result-item">
                                             <iframe 
                                                 src="{{ song.transformed_url }}" 
-                                                width="300" 
-                                                height="380" 
+                                                width="250" 
+                                                height="355" 
                                                 frameborder="0" 
                                                 allowtransparency="true" 
                                                 allow="encrypted-media">
@@ -150,7 +159,7 @@
                     <!-- Spotify 추천 플레이리스트 -->
                     <div class="spotify-playlist-container">
                         <section class="result-list">
-                            <h2 class="list_h2 spotify">Spotify Recommended Playlist</h2>
+                            <h2 class="list_h2 spotify">Spotify 추천 플레이리스트</h2>
                             <div class="playlist-grid">
                                 {% for playlist in search_playlists %}
                                     {% if playlist.platform == "spotify" %}
@@ -180,22 +189,29 @@
     <div class="modal" id="modal">
         <div class="modal-content">
             <span class="close-btn" id="close-modal-btn">&times;</span>
-            <h2 class="list_h2">🎵 노래 재생 🎵</h2>
+            <h2 class="modal_h2">🎵 노래 재생 🎵</h2>
             <div class="video-player">
-                <iframe id="youtube-player" src="" frameborder="0" allowfullscreen></iframe>
+                <iframe id="youtube-player" src="https://www.youtube.com/embed/{{ video_id }}?autoplay=1" frameborder="0" allowfullscreen></iframe>
             </div>
             <div class="video-controls">
-                <button id="prev-btn">⏮️ 이전 곡</button>
-                <button id="play-btn">▶️ 재생</button>
-                <button id="pause-btn">⏸️ 일시정지</button>
-                <button id="next-btn">⏭️ 다음 곡</button>
+                <button id="prev-btn">⏮️</button>
+                <button id="next-btn">⏭️</button>
             </div>
             <ul class="video-list" id="video-list">
-                <!-- 유튜브 링크 리스트가 여기에 추가됩니다 -->
-            </ul>
+                <!-- YouTube 노래 제목 리스트 -->
+                {% for song in playlist %}
+                    <li class="song-item">
+                        {{ song.title }} <!-- 노래 제목 표시 -->
+                    </li>
+                {% empty %}
+                    <p>플레이리스트에 노래가 없습니다.</p>
+                {% endfor %}
+            </ul>            
         </div>
     </div>
-    
+
+    <!-- Toast 메시지 -->
+    <div id="toast" class="toast"></div>
 
     <!-- 플로팅 버튼 -->
     <div class="floating-button" id="open-modal-btn">▶</div>

@@ -14,8 +14,13 @@ def index(request):
     for song in daily_songs:
         print(f"Song: {song.song_title}, URL: {song.song_url}")
 
+    '''
     for playlist in daily_playlists:
         print(f"Playlist: {playlist.playlist_title}, URL: {playlist.playlist_url}")
+    '''
+
+    for playlist in daily_playlists:
+        playlist.playlist_url = playlist.playlist_url.replace("playlist", "embed/playlist")
 
     context = {
         'daily_songs': daily_songs,

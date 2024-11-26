@@ -1,24 +1,8 @@
-
-
 /* Font 적용 */
 @font-face {
     font-family: 'Pretendard-Regular';
     src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
     font-weight: 400;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'YoonChildfundkoreaManSeh';
-    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408@1.0/YoonChildfundkoreaManSeh.woff2') format('woff2');
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'DOSGothic';
-    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_eight@1.0/DOSGothic.woff') format('woff');
-    font-weight: normal;
     font-style: normal;
 }
 
@@ -31,27 +15,30 @@
 
 /* Header 스타일 */
 header {
-    position: fixed; /* 화면 상단에 고정 */
+    position: fixed; 
     top: 0;
     left: 0;
-    width: 100%; /* 화면 전체 너비 */
+    width: 100%; 
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    background-color: #333;
+    background-color: #111111;
     color: white;
-    padding: 0.5rem 2rem; /* padding 축소 */
-    box-shadow: 0 4px 20px rgba(255, 255, 255, 0.05); /* 헤더 그림자 */
-    z-index: 10; /* 다른 요소 위에 표시 */
+    padding: 0.5rem 2rem; 
+    box-shadow: 0 4px 20px rgba(255, 255, 255, 0.05); 
+    z-index: 10; 
 }
 
-/* form-row: input과 버튼들을 하나의 행(row)로 배치 */
+/* form-row */
 .form-row {
     display: flex;
-    align-items: center; /* 세로축 중앙 정렬 */
-    justify-content: center; /* 가로축 중앙 정렬 */
-    gap: 1rem; /* 각 요소 간 간격 */
+    align-items: center;
+    justify-content: space-between; /* 좌우 정렬 */
+    margin-top: 1rem;
     padding: 15px;
+    width: calc(100% - 200px); 
+    margin-left: 200px; 
+    box-sizing: border-box; /* 패딩 포함 */
 }
 
 /* group 스타일 그대로 유지 */
@@ -59,7 +46,6 @@ header {
     display: flex;
     align-items: center;
     position: relative;
-    max-width: 450px;
     width: 100%;
 }
 
@@ -70,6 +56,7 @@ header {
     line-height: 28px;
     padding: 0.5rem 1rem;
     padding-left: 2.5rem;
+    margin-left: 20px;
     border: 2px solid transparent;
     border-radius: 8px;
     outline: none;
@@ -77,7 +64,6 @@ header {
     color: #303030;
     transition: .3s ease;
 }
-
 
 .input::placeholder {
     color: #9e9ea7;
@@ -93,7 +79,7 @@ header {
 
 .icon {
     position: absolute;
-    left: 1rem;
+    left: 2rem;
     fill: #9e9ea7;
     width: 1rem;
     height: 1rem;
@@ -111,7 +97,7 @@ header {
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    padding: 0.5rem 1rem;
+    padding: 0.8rem 1rem;
     border-radius: 8px;
     cursor: pointer;
     transition: background-color 0.3s ease, color 0.3s ease;
@@ -158,9 +144,9 @@ input[type="radio"]:checked + .checkbox-label.spotify {
 
 h1 {
     font-family: 'NeoDunggeunmoPro-Regular';
-    font-size: 32px; /* 글자 크기 키움 */
+    font-size: 24px;
     margin: 0.5rem;
-    text-align: center; /* 중앙 정렬 (선택 사항) */
+    text-align: center;
 }
 
 h2 {
@@ -173,12 +159,22 @@ h2 {
 .list_h2 {
     font-family: 'NeoDunggeunmoPro-Regular';
     font-size: 22px;
-    margin: 1rem;
+    margin-bottom: 1rem;
+    margin-top: 0;
+    color: #303030;
+}
+
+.modal_h2 {
+    font-family: 'NeoDunggeunmoPro-Regular';
+    font-size: 22px;
+    margin-bottom: 1rem;
+    margin-top: 10px;
     color: #303030;
 }
 
 .list_h2.youtube {
     color: #FF0000;
+    margin: 0px 0px 15px 8px;
 }
 
 .list_h2.spotify {
@@ -197,7 +193,7 @@ h2 {
 /* Body 스타일 */
 body {
     line-height: 1;
-    background-color: #252422; /* 배경색 */
+    background: linear-gradient(to bottom, #212121, black); /* 그라데이션 */
     font-family: 'Pretendard-Regular';
     margin: 0px;
 }
@@ -205,18 +201,21 @@ body {
 /* Sidebar 스타일 */
 .main-container {
     display: flex;
-    height: 100vh;
-    margin-top: 4rem;
+    height: 100%;
+    margin-top: 3.5rem;
 }
 
 .sidebar {
-    width: 200px;
-    background-color: #333;
+    width: 200px; /* 고정된 너비 설정 */
+    min-width: 200px; /* 최소 너비를 고정 */
+    max-width: 200px; /* 최대 너비를 고정 */
+    background-color: #111111;
     color: white;
     display: flex;
     flex-direction: column;
     padding: 10px 20px 20px 20px;
     gap: 10px;
+    box-sizing: border-box; /* 패딩과 보더를 너비에 포함 */
 }
 
 .sidebar-title {
@@ -269,7 +268,7 @@ hr {
 }
 
 .main-content {
-    width: 100%
+    width: 90%;
 }
 
 /* 검색창 스타일 */
@@ -279,134 +278,181 @@ main {
     padding-left: 18px;
 }
 
-.group {
-    display: flex;
-    line-height: 28px;
-    align-items: center;
-    position: relative;
-    padding: 20px 0px 10px 20px;
-}
-
-.input {
-    width: 300px;
-    height: 40px;
-    line-height: 28px;
-    padding: 0 1rem;
-    padding-left: 2.5rem;
-    border: 2px solid transparent;
-    border-radius: 8px;
-    outline: none;
-    background-color: #f3f3f4;
-    color: #0d0c22;
-    transition: .3s ease;
-}
-
-.input::placeholder {
-    color: #9e9ea7;
-}
-
-.input:focus,
-.input:hover {
-    outline: none;
-    border-color: #51515140; 
-    background-color: #fff;
-    box-shadow: 0 0 0 4px #7e7e7e1a; 
-}
-
-.icon {
-    position: absolute;
-    left: 1rem;
-    fill: #9e9ea7;
-    width: 1rem;
-    height: 1rem;
-    left: 30px;
-}
-
 /* 검색 결과 컨테이너 스타일 */
 .youtube-videos-container,
-.youtube-playlist-container,
+.youtube-playlist-container {
+    background-color: #191919;
+    max-width: 97%;
+    margin: 10px 30px 30px 30px;
+    padding: 0px 20px 20px 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+/* spotify 컨테이너 */
 .spotify-recommend-container,
 .spotify-playlist-container {
-    background-color: #f4f4f4; 
-    max-width: 97%; 
-    margin: 10px 30px 30px 30px; 
-    padding: 0px 20px 20px 20px;
-    border-radius: 10px; 
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); 
-    max-height: 350px; 
-    overflow-y: auto; 
+    display: flex; 
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+    background-color: #191919;
+    margin: 10px 30px 30px 30px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    max-height: 500px; /* 컨테이너 높이 설정 */
+    overflow-x: auto;
 }
 
-.youtube-videos-container::-webkit-scrollbar,
+/* 가로 스크롤을 활성화할 부분 */
+.spotify-recommend-container .results-grid,
+.spotify-playlist-container .playlist-grid {
+    display: flex; /* 항목들을 가로로 나열 */
+    gap: 20px; /* 항목 사이의 간격 */
+    overflow-x: auto; /* 가로 스크롤 활성화 */
+    padding-bottom: 10px; /* 스크롤이 컨테이너와 겹치는 문제 해결 */
+}
+
+/* 각 항목 스타일 */
+.spotify-recommend-container .result-item,
+.spotify-playlist-container .result-item {
+    flex: 0 0 220px; /* 각 항목의 고정 너비 */
+    display: flex;
+    justify-content: center; /* 아이템 가운데 정렬 */
+    align-items: center;
+    background-color: black;
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 0px;
+}
+
+/* 스크롤바 스타일 삭제 */
 .spotify-recommend-container::-webkit-scrollbar,
-.youtube-playlist-container::-webkit-scrollbar,
 .spotify-playlist-container::-webkit-scrollbar {
-    width: 8px; 
+    width: 4px;
 }
 
-.youtube-videos-container::-webkit-scrollbar-thumb,
 .spotify-recommend-container::-webkit-scrollbar-thumb,
-.youtube-playlist-container::-webkit-scrollbar-thumb,
 .spotify-playlist-container::-webkit-scrollbar-thumb {
-    background-color: #cccccc; 
-    border-radius: 4px; 
+    background-color: #cccccc;
+    border-radius: 4px;
 }
 
-.youtube-videos-container::-webkit-scrollbar-thumb:hover,
 .spotify-recommend-container::-webkit-scrollbar-thumb:hover,
-.youtube-playlist-container::-webkit-scrollbar-thumb:hover,
 .spotify-playlist-container::-webkit-scrollbar-thumb:hover {
     background-color: #b3b3b3;
 }
 
-/* 검색 결과 항목 스타일 */
-.result-item {
+
+.spotify-recommend-container .result-item,
+.spotify-playlist-container .result-item {
+    flex: 0 0 220px; /* 각 항목의 고정 너비 */
     display: flex;
-    align-items: center; 
-    justify-content: space-between; 
-    background-color: #f8f8f8;
+    justify-content: center; /* iframe 가운데 정렬 */
+    align-items: center;
+    background-color: black;
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 0px;
+    justify-content: center;
+}
+
+
+/* YouTube 검색 결과 항목 스타일 */
+/* 공통 검색 결과 컨테이너 스타일 */
+.youtube-videos-container,
+.youtube-playlist-container {
+    background-color: #191919;
+    max-width: 97%;
+    margin: 10px 30px 30px 30px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+/* 결과 항목 스타일 */
+.youtube-videos-container .result-item,
+.youtube-playlist-container .result-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #303030;
     padding: 10px;
     margin-bottom: 10px;
     border-radius: 8px;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* 이미지(썸네일) 스타일 */
-.result-item .thumbnail {
-    flex: 0 0 80px; 
-    margin-right: 20px; 
+/* 썸네일 스타일 */
+.youtube-videos-container .result-item .thumbnail,
+.youtube-playlist-container .result-item .thumbnail {
+    flex: 0 0 80px;
+    margin-right: 20px;
 }
 
-.result-item .thumbnail img {
+.youtube-videos-container .result-item .thumbnail img,
+.youtube-playlist-container .result-item .thumbnail img {
     width: 80px;
     height: 80px;
-    border-radius: 4px; 
+    border-radius: 4px;
     object-fit: cover;
 }
 
-/* 제목과 가수 정보 */
-.result-item .details {
-    flex: 1; 
+/* 상세 정보 스타일 */
+.youtube-videos-container .result-item .details,
+.youtube-playlist-container .result-item .details {
+    flex: 1;
     display: flex;
     flex-direction: column;
-    justify-content: center; 
+    justify-content: center;
 }
 
-.result-item .details .title {
+.youtube-videos-container .result-item .details .title,
+.youtube-playlist-container .result-item .details .title {
     font-size: 20px;
     margin: 0;
-    color: #303030;
+    color: #fff;
 }
 
-.result-item .details .artist {
+/* 버튼 스타일 */
+.youtube-videos-container .result-item .action .view-btn,
+.youtube-playlist-container .result-item .action .view-btn {
+    display: inline-block;
+    padding: 8px 12px;
+    background-color: #ff0000; /* YouTube 빨간색 */
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
     font-size: 14px;
-    color: #606060;
-    margin: 0; 
+    text-align: center;
+    transition: background-color 0.3s ease;
 }
 
-.spotify-playlist-item {
-    padding: 20px;
+.youtube-videos-container .result-item .action .view-btn:hover,
+.youtube-playlist-container .result-item .action .view-btn:hover {
+    background-color: #cc0000;
 }
+
+.youtube-videos-container::-webkit-scrollbar-thumb,
+.youtube-playlist-container::-webkit-scrollbar-thumb,
+.spotify-recommend-container::-webkit-scrollbar,
+.spotify-playlist-container::-webkit-scrollbar-thumb {
+    background-color: #cccccc;
+    border-radius: 4px;
+}
+
+.youtube-videos-container::-webkit-scrollbar-thumb:hover,
+.youtube-playlist-container::-webkit-scrollbar-thumb:hover,
+.spotify-recommend-container::-webkit-scrollbar,
+.spotify-playlist-container::-webkit-scrollbar-thumb:hover {
+    background-color: #b3b3b3;
+}
+
 
 /* 담기 버튼 */
 
@@ -431,15 +477,6 @@ main {
 
 .result-item .action .view-btn:hover {
     background-color: #0056b3;
-}
-
-/* 플레이리스트 전체 컨테이너 */
-.playlist-grid {
-    display: flex; 
-    flex-wrap: wrap; 
-    gap: 20px; 
-    justify-content: center;
-    margin-top: 20px;
 }
 
 /* 개별 플레이리스트 항목 */
@@ -589,25 +626,33 @@ main {
 }
 
 .video-controls button {
-    background-color: #007BFF;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    padding: 10px 15px;
-    margin: 5px;
-    cursor: pointer;
-    font-size: 16px;
+    color: white; /* 텍스트 흰색 */
+    border: none; /* 테두리 제거 */
+    border-radius: 8px; /* 둥근 모서리 */
+    padding: 12px 20px; /* 버튼 내부 여백 */
+    margin: 5px; /* 버튼 간격 */
+    cursor: pointer; /* 포인터로 변경 */
+    font-size: 16px; /* 글자 크기 */
+    font-weight: bold; /* 글자 굵기 */
+    transition: background-color 0.3s, transform 0.2s; /* 전환 효과 */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
 }
 
 .video-controls button:hover {
-    background-color: #0056b3;
+    background-color: #a3a3a3; /* 호버 시 색상 변경 */
+    transform: scale(1.05); /* 약간 커짐 */
+}
+
+.video-controls button:active {
+    background-color: #a3a3a3; /* 클릭 시 색상 변경 */
+    transform: scale(0.95); /* 클릭 시 약간 작아짐 */
 }
 
 .video-list {
     text-align: left;
     max-height: 150px;
     overflow-y: auto;
-    margin-top: 10px;
+    margin: 10px 5px 5px 10px;
     padding: 0;
 }
 
@@ -622,3 +667,24 @@ main {
     background-color: #f9f9f9;
 }
 
+.toast {
+    visibility: hidden;
+    min-width: 250px;
+    margin-left: -125px;
+    background-color: #fff;
+    color: #303030;
+    text-align: center;
+    border-radius: 10px;
+    padding: 16px;
+    position: fixed;
+    z-index: 1;
+    left: 50%;
+    bottom: 30px;
+    font-size: 17px;
+    transition: visibility 0s, opacity 0.5s linear;
+}
+
+.toast.show {
+    visibility: visible;
+    opacity: 1;
+}

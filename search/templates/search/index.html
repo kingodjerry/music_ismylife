@@ -1,17 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    {% load static %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>007 is Coming</title>
-    {% load static %}
+    <link rel="shortcut icon" href="{% static 'search/images/favicon.ico' %}" type="image/x-icon">
+    <title>옥탑방 플레이리스트</title>
     {% load custom_filters %}
     <link rel="stylesheet" type="text/css" href="{% static 'search/css/index.css' %}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=music_note" />
 </head>
 <body>
     <header>
-        <h1>007:LIST</h1>
+        <h1>옥탑방 플레이리스트</h1>
         <span class="material-symbols-outlined">music_note</span>
     </header>
 
@@ -88,10 +89,14 @@
                 {% if daily_playlists %}
                     {% for playlist in daily_playlists %}
                         <div class="scroll-item">
-                            <a href="{{ playlist.playlist_url }}" target="_blank">
-                                <img src="{{ playlist.thumbnail }}" alt="Playlist Thumbnail" class="thumbnail">
-                                <p class="playlist-name.spotify">{{ playlist.playlist_title }}</p>
-                            </a>
+                            <iframe 
+                            src="{{ playlist.playlist_url }}" 
+                            width="300" 
+                            height="380" 
+                            frameborder="0" 
+                            allowtransparency="true" 
+                            allow="encrypted-media">
+                            </iframe>
                         </div>
                     {% endfor %}
                 {% else %}
