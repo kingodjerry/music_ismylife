@@ -6,7 +6,7 @@ import time
 
 def index(request):
     daily_songs = DailySongs.objects.all()
-    daily_playlists = DailyPlaylists.objects.all()[:10]
+    daily_playlists = DailyPlaylists.objects.all()
 
     print(f"Daily Songs count: {daily_songs.count()}")
     print(f"Daily Playlists count: {daily_playlists.count()}")
@@ -43,8 +43,9 @@ def trigger_airflow_dag(request):
         request.session['platform'] = platform
         request.session['input_value'] = input_value
 
-        airflow_url = "http://airflow_007-airflow-webserver:8080/api/v1/dags/etl_dag_search_songs/dagRuns"
-        airflow_url_playlist = "http://airflow_007-airflow-webserver:8080/api/v1/dags/etl_dag_playlist/dagRuns"
+        # airflow_url = "http://airflow_007-airflow-webserver:8080/api/v1/dags/etl_dag_search_songs/dagRuns"
+        # airflow_url_playlist = "http://airflow_007-airflow-webserver:8080/api/v1/dags/etl_dag_playlist/dagRuns"
+        airflow_url = "http://localhost:8080/api/v1/dags/example_trigger_dag/dagRuns"
         username = 'airflow'
         password = 'airflow'
 
@@ -58,9 +59,10 @@ def trigger_airflow_dag(request):
         }
 
         try:
+            # response = requests.post(airflow_url, json=payload, headers=headers, auth=HTTPBasicAuth(username, password))
+            # response_play = requests.post(airflow_url_playlist, json=payload, headers=headers, auth=HTTPBasicAuth(username, password))
             response = requests.post(airflow_url, json=payload, headers=headers, auth=HTTPBasicAuth(username, password))
-            response_play = requests.post(airflow_url_playlist, json=payload, headers=headers, auth=HTTPBasicAuth(username, password))
-            if response.status_code == 200 and response_play.status_code == 200:
+            if response.status_code == 200 : #and response_play.status_code == 200:
                 time.sleep(5)
                 # 트리거 성공 후 결과 페이지로 리디렉션
                 return redirect('result')  # 'result'는 결과 페이지의 URL 이름
@@ -80,7 +82,18 @@ def result(request):
 
     # 모든 데이터 가져오기
     search_songs = SearchSongs.objects.all()
-    search_playlists = SearchPlaylist.objects.all() 
+    search_playlists = SearchPlaylist.objects.all()
+
+    # Spotify URL 변환
+    for song in search_songs:
+        if song.platform == "spotify" and "track" in song.song_url:
+            song.transformed_url = song.song_url.replace("track", "embed/track")
+        else:
+            song.transformed_url = song.song_url
+
+    for playlist in search_playlists:
+        if playlist.platform == "spotify" and "playlist" in playlist.playlist_url:
+            playlist.playlist_url = playlist.playlist_url.replace("playlist", "embed/playlist")
 
     # 템플릿으로 데이터 전달
     context = {
