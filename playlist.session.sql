@@ -1,3 +1,4 @@
+-- SQLBook: Code
 -- daily_songs 테이블에 더미 데이터 삽입
 INSERT INTO django_schema.daily_songs (song_title, song_url, thumbnail, platform)
 VALUES 

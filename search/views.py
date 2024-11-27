@@ -48,9 +48,9 @@ def trigger_airflow_dag(request):
         request.session['platform'] = platform
         request.session['input_value'] = input_value
 
-        # airflow_url = "http://airflow_007-airflow-webserver:8080/api/v1/dags/etl_dag_search_songs/dagRuns"
-        # airflow_url_playlist = "http://airflow_007-airflow-webserver:8080/api/v1/dags/etl_dag_playlist/dagRuns"
-        airflow_url = "http://localhost:8080/api/v1/dags/example_trigger_dag/dagRuns"
+        airflow_url = "http://airflow_007-airflow-webserver:8080/api/v1/dags/etl_dag_search_songs/dagRuns"
+        airflow_url_playlist = "http://airflow_007-airflow-webserver:8080/api/v1/dags/etl_dag_playlist/dagRuns"
+        # airflow_url = "http://localhost:8080/api/v1/dags/example_trigger_dag/dagRuns" # 테스트용 
         username = 'airflow'
         password = 'airflow'
 
@@ -64,10 +64,10 @@ def trigger_airflow_dag(request):
         }
 
         try:
-            # response = requests.post(airflow_url, json=payload, headers=headers, auth=HTTPBasicAuth(username, password))
-            # response_play = requests.post(airflow_url_playlist, json=payload, headers=headers, auth=HTTPBasicAuth(username, password))
             response = requests.post(airflow_url, json=payload, headers=headers, auth=HTTPBasicAuth(username, password))
-            if response.status_code == 200 : #and response_play.status_code == 200:
+            response_play = requests.post(airflow_url_playlist, json=payload, headers=headers, auth=HTTPBasicAuth(username, password))
+            # response = requests.post(airflow_url, json=payload, headers=headers, auth=HTTPBasicAuth(username, password)) # 테스트용
+            if response.status_code == 200 and response_play.status_code == 200:
                 time.sleep(5)
                 # 트리거 성공 후 결과 페이지로 리디렉션
                 return redirect('result')  # 'result'는 결과 페이지의 URL 이름
